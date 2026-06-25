@@ -15,7 +15,7 @@ A client streams exchange trades (ticks) to the server and receives a signal —
 - **Trend detector** over the live stream: the `direction` field (+1 long / −1 short / 0 undecided).
 - The model is shared by everyone (weights, features and window are fixed) — but **entry threshold, sampling rate and horizon are per-client**.
 
-By default the server listens on `http://127.0.0.1:5009`.
+By default the server listens on `http://137.184.119.173:5099`.
 
 ---
 
@@ -44,7 +44,7 @@ All parameters are named and tied to `client_id`. They change without retraining
 ### Example: set settings
 
 ```bash
-curl -X POST http://127.0.0.1:5009/config \
+curl -X POST http://137.184.119.173:5099/config \
   -H "Content-Type: application/json" \
   -d '{
     "client_id": "scalper-1",
@@ -57,7 +57,7 @@ curl -X POST http://127.0.0.1:5009/config \
 Change a single parameter (others untouched):
 
 ```bash
-curl -X POST http://127.0.0.1:5009/config \
+curl -X POST http://137.184.119.173:5099/config \
   -H "Content-Type: application/json" \
   -d '{"client_id": "scalper-1", "signal_threshold": 0.30}'
 ```
@@ -65,7 +65,7 @@ curl -X POST http://127.0.0.1:5009/config \
 Read current settings:
 
 ```bash
-curl "http://127.0.0.1:5009/config?client_id=scalper-1"
+curl "http://137.184.119.173:5099/config?client_id=scalper-1"
 ```
 
 ### Helper script
@@ -84,7 +84,7 @@ chmod +x configure_prediction_server.sh
 One tick = one exchange trade (`timestamp`, `side`, `size`, `price`). You can also pass `config` on the first tick.
 
 ```bash
-curl -X POST http://127.0.0.1:5009/tick \
+curl -X POST http://137.184.119.173:5099/tick \
   -H "Content-Type: application/json" \
   -d '{
     "client_id": "trader-1",
@@ -141,7 +141,7 @@ Requires `websocat`, `jq`, `curl`. Subscribe to `publicTrade.BTCUSDT` and send e
 set -euo pipefail
 
 CLIENT_ID="trader-1"
-PREDICT_URL="http://127.0.0.1:5009/tick"
+PREDICT_URL="http://137.184.119.173:5099/tick"
 WS_URL="wss://stream.bybit.com/v5/public/linear"
 SUB='{"op":"subscribe","args":["publicTrade.BTCUSDT"]}'
 
@@ -192,7 +192,7 @@ curl -s "https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT"
 ## Trend detector (`/state`, `/reset`)
 
 ```bash
-curl "http://127.0.0.1:5009/state?client_id=trader-1"
+curl "http://137.184.119.173:5099/state?client_id=trader-1"
 ```
 
 Key field `direction`: `-1` downtrend (model leans SHORT), `+1` uptrend, `0` undecided.
@@ -200,7 +200,7 @@ Key field `direction`: `-1` downtrend (model leans SHORT), `+1` uptrend, `0` und
 If the detector is stuck on an old seed state, reset it and let it catch the trend from the live stream:
 
 ```bash
-curl -X POST "http://127.0.0.1:5009/reset?client_id=trader-1" \
+curl -X POST "http://137.184.119.173:5099/reset?client_id=trader-1" \
   -H "Content-Type: application/json" \
   -d '{"use_seed": false}'
 ```

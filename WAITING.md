@@ -78,7 +78,7 @@ There is nothing to fix on your side. Keep the live stream running and wait for 
 If you just want to confirm everything works end-to-end without waiting for a real breakout, reset with a seed direction:
 
 ```bash
-curl -X POST "http://127.0.0.1:5009/reset?client_id=trader-1" \
+curl -X POST "http://137.184.119.173:5099/reset?client_id=trader-1" \
   -H "Content-Type: application/json" \
   -d '{"use_seed": true}'
 ```
