@@ -121,6 +121,8 @@ curl -X POST http://127.0.0.1:5009/tick \
 
 On the first tick the server returns `"Signal not ready yet"` — the model must accumulate **128 ticks** (`lookback_ticks`). Repeating the same REST price is useless: predictions on identical prices are meaningless. You need a **live trade stream** (Bybit WebSocket).
 
+> **Ticks flowing but still no signal?** That is normal and usually not a bug — the model is waiting for the market to pick a direction, which can take a while in a flat market. See **[WAITING.md](WAITING.md)** for the full explanation.
+
 ### Live stream: Bybit WebSocket → server
 
 Requires `websocat`, `jq`, `curl`. Subscribe to `publicTrade.BTCUSDT` and send every trade to `/tick`. After ~128 trades signals start arriving.
