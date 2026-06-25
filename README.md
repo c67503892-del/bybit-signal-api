@@ -68,6 +68,15 @@ Read current settings:
 curl "http://127.0.0.1:5009/config?client_id=scalper-1"
 ```
 
+### Helper script
+
+[`configure_prediction_server.sh`](configure_prediction_server.sh) applies the three settings for your `client_id` in one go and prints back what the server stored. Edit the variables at the top (`SERVER_BASE`, `CLIENT_ID`, the three thresholds) and run:
+
+```bash
+chmod +x configure_prediction_server.sh
+./configure_prediction_server.sh
+```
+
 ---
 
 ## Get a prediction (`/tick`)
