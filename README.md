@@ -1,5 +1,9 @@
 # bybit-signal-api
 
+> ## ⚠️ Disclaimer
+>
+> **All materials, information, and source code published in the Telegram channel CryptoGoTrading are provided strictly for educational and informational purposes only and do not constitute investment, financial, legal, or any other professional advice. Any use of the materials is at the user's own risk, and the channel's authors shall not be held liable for any losses, damages, or consequences arising from their use.**
+
 REST API server for **Bybit** trading signals (BTCUSDT perpetual futures), powered by a **DQN + CNN/LSTM** model.
 
 A client streams exchange trades (ticks) to the server and receives a signal — **LONG / SHORT / no signal** — together with class probabilities and an expected validity time. Every client is configured individually by its `client_id`.
